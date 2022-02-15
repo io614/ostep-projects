@@ -5,15 +5,14 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define MAXLEN 1000
-#define MAXLINES 10000
+#define INIT_LENGTH 2
 #define swapcharptr(a, i, j) {\
     char *tmp = a[j];\
     a[j] = a[i];\
     a[i] = tmp;\
 }\
 
-void reverse_linebuf(char *linebuf[], int size) {
+void reverse_linebuf(char **linebuf, int size) {
     size--;
     int j = 0;
     while (size > j) {
@@ -23,12 +22,21 @@ void reverse_linebuf(char *linebuf[], int size) {
     }
 }
 void reverse(FILE *ifp, FILE *ofp) {
-    char buf[MAXLEN];
-    char *linebuf[MAXLINES];
+    char *line = NULL;
+    int linebufsize = INIT_LENGTH;
+    char **linebuf = malloc(INIT_LENGTH * sizeof(char *));
+    size_t len = 0;
+    ssize_t nread;
     int i = 0;
-    while (fgets(buf, MAXLEN, ifp)) {
-        linebuf[i++] = strdup(buf);
+
+    while ((nread = getline(&line, &len, ifp)) >= 0) {
+        linebuf[i++] = strdup(line);
+        if (i == linebufsize) {
+            linebufsize *= 2;
+            linebuf  = realloc(linebuf, linebufsize * sizeof(char *));
+        }
     }
+
     reverse_linebuf(linebuf, i);
     for (int ii=0; ii < i; ii++){
         fputs(linebuf[ii], ofp);
