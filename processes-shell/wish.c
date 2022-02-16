@@ -3,9 +3,14 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 #define MAXLINE 1000
 #define MAXPATHS 1000
 #define MAXARGS 100
+#define WHITESPACE " \t"
 
 char *pathv[MAXPATHS] = {0};
 char fullpath[MAXLINE];
@@ -25,15 +30,21 @@ char *getfullpath(char filename[]) {
     return (char *) 0;
 }
 
-int tokenize_args(char buf[]) {
+int tokenize_args(char buf[], char *argv[], char delim[]) {
 
     int i = 0;
-    char delim[] = " \t";
-    if ((wargv[i] = strtok(buf, delim)))
-        while ((wargv[++i] = strtok(NULL, delim)))
+    if ((argv[i] = strtok(buf, delim)))
+        while ((argv[++i] = strtok(NULL, delim)))
             ;
             
     return i;
+}
+
+void free_ptr_array(void *arr[]){
+    void *ptr;
+    for(int i = 0; (ptr = arr[i]); i++){
+        free(ptr);
+    }
 }
 
 void err() {
@@ -45,22 +56,53 @@ int main(int argc, char *argv[]) {
 	char buf[MAXLINE] = {0};
 	pid_t pid;
 	int status;
-        pathv[0] = "/bin";
+        pathv[0] = strdup("/bin");
         char *fullpathptr;
         int wargc;
         FILE *ifp = stdin;
         char *prompt = "wish> ";
+        char *pipev[MAXARGS];
+        char *redirectv[MAXARGS];
+        int redirectfd;
 
-        if (argc > 1) {
+        if (argc > 2) {
+            err();
+            exit(1);
+        }
+        if (argc == 2) {
             prompt = "";
-            ifp = fopen(argv[1], "r");
+            if((ifp = fopen(argv[1], "r")) == 0) {
+                err();
+                exit(1);
+            }
         }
 
-        printf("%s", prompt);
-	while (fgets(buf, MAXLINE, ifp) != NULL) {
+        int stdoutdupfd = dup(STDOUT_FILENO);
+        int stderrdupfd = dup(STDERR_FILENO);
+	while (dup2(stdoutdupfd, STDOUT_FILENO), // restore original stdout fd
+               dup2(stderrdupfd, STDERR_FILENO), // restore original stderr fd
+               printf("%s", prompt),
+               fgets(buf, MAXLINE, ifp) != NULL) {
+
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
-                wargc = tokenize_args(buf);
+
+                if (strstr(buf, ">")) {
+                    if ((tokenize_args(buf, pipev , ">") == 2) && (tokenize_args(pipev[1], redirectv, WHITESPACE) == 1)) {
+                        redirectfd = open(redirectv[0], O_RDWR|O_CREAT|O_TRUNC, 0777);
+                        dup2(redirectfd, STDOUT_FILENO);
+                        dup2(redirectfd, STDERR_FILENO);
+                    }
+
+                    else {
+                        err();
+                        continue;
+                    }
+                }
+
+                wargc = tokenize_args(buf, wargv, WHITESPACE);
+
+                if (wargc == 0) continue;
 
                 // inbuilt shell commands
                 // exit
@@ -76,18 +118,17 @@ int main(int argc, char *argv[]) {
                     if (wargc != 2 || chdir(wargv[1]) < 0) {
                         err();
                     }
-                    printf("%s", prompt);
                     continue;
                 }
 
                 //path
                 if (!strcmp(wargv[0], "path")) {
                     for (int i = 1; i < wargc; i++) {
+                        if (pathv[i-1]) free(pathv[i-1]);
                         pathv[i-1] = strdup(wargv[i]);
                     }
 
                     pathv[wargc-1] = NULL;
-                    printf("%s", prompt);
                     continue;
                 }
 
@@ -109,7 +150,6 @@ int main(int argc, char *argv[]) {
 			printf("waitpid error\n");
                         exit(1);
                 }
-                printf("%s", prompt);
 	}
 	exit(0);
 }
