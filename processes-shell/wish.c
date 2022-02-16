@@ -80,6 +80,17 @@ int main(int argc, char *argv[]) {
                     continue;
                 }
 
+                //path
+                if (!strcmp(wargv[0], "path")) {
+                    for (int i = 1; i < wargc; i++) {
+                        pathv[i-1] = strdup(wargv[i]);
+                    }
+
+                    pathv[wargc-1] = NULL;
+                    printf("%s", prompt);
+                    continue;
+                }
+
                 // fork new process
 		if ((pid = fork()) < 0) {
 			printf("fork error");
