@@ -8,9 +8,8 @@
 #define MAXARGS 100
 
 char *pathv[MAXPATHS] = {0};
-char prompt[] = "wish> ";
 char fullpath[MAXLINE];
-char *argv[MAXARGS] = {0};
+char *wargv[MAXARGS] = {0};
 
 char *getfullpath(char filename[]) {
     char *path;
@@ -30,37 +29,68 @@ int tokenize_args(char buf[]) {
 
     int i = 0;
     char delim[] = " \t";
-    if ((argv[i] = strtok(buf, delim)))
-        while ((argv[++i] = strtok(NULL, delim)))
+    if ((wargv[i] = strtok(buf, delim)))
+        while ((wargv[++i] = strtok(NULL, delim)))
             ;
             
     return i;
 }
 
-int main(void) {
+void err() {
+    char error_message[30] = "An error has occurred\n";
+    write(STDERR_FILENO, error_message, strlen(error_message)); 
+}
+
+int main(int argc, char *argv[]) {
 	char buf[MAXLINE] = {0};
 	pid_t pid;
 	int status;
         pathv[0] = "/bin";
         char *fullpathptr;
+        int wargc;
+        FILE *ifp = stdin;
+        char *prompt = "wish> ";
+
+        if (argc > 1) {
+            prompt = "";
+            ifp = fopen(argv[1], "r");
+        }
 
         printf("%s", prompt);
-	while (fgets(buf, MAXLINE, stdin) != NULL) {
+	while (fgets(buf, MAXLINE, ifp) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
-                tokenize_args(buf);
+                wargc = tokenize_args(buf);
+
+                // inbuilt shell commands
+                // exit
+                if (!strcmp(wargv[0], "exit")) {
+                    if (wargc != 1) {
+                        err();
+                    }
+                    exit(0);
+                }
+
+                // cd
+                if (!strcmp(wargv[0], "cd")) {
+                    if (wargc != 2 || chdir(wargv[1]) < 0) {
+                        err();
+                    }
+                    printf("%s", prompt);
+                    continue;
+                }
 
                 // fork new process
 		if ((pid = fork()) < 0) {
 			printf("fork error");
                         exit(1);
 		} else if (pid == 0) {		/* child */
-                        if ((fullpathptr = getfullpath(argv[0])) == 0) {
-                            printf("couldn't execute: %s\n", argv[0]);
+                        if ((fullpathptr = getfullpath(wargv[0])) == 0) {
+                            err();
                             exit(1);
                         }
 
-			execv(fullpathptr, argv);
+			execv(fullpathptr, wargv);
 		}
 
 		/* parent */
