@@ -54,7 +54,8 @@ void err() {
 
 int main(int argc, char *argv[]) {
 	char buf[MAXLINE] = {0};
-	pid_t pid;
+        char *ssbufptr;
+	pid_t sspid, pid;
 	int status;
         pathv[0] = strdup("/bin");
         char *fullpathptr;
@@ -64,6 +65,9 @@ int main(int argc, char *argv[]) {
         char *pipev[MAXARGS];
         char *redirectv[MAXARGS];
         int redirectfd;
+        char *parav[MAXARGS];
+        int sspids[MAXARGS];
+        int nsubshells;
 
         if (argc > 2) {
             err();
@@ -87,8 +91,24 @@ int main(int argc, char *argv[]) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
 
-                if (strstr(buf, ">")) {
-                    if ((tokenize_args(buf, pipev , ">") == 2) && (tokenize_args(pipev[1], redirectv, WHITESPACE) == 1)) {
+                if ((nsubshells = tokenize_args(buf, parav, "&")) == 0) {
+                    continue;
+                }
+                
+                int ssi = 1;
+                sspid = 0;
+                for (;ssi < nsubshells; ssi++) {
+                    if ((sspid = fork()) == 0) break;
+                    sspids[ssi] = sspid;
+                }
+
+                if (ssi == nsubshells) ssi = 0;
+
+                ssbufptr = parav[ssi];
+
+                if (strstr(ssbufptr, ">")) {
+                    if ((tokenize_args(ssbufptr, pipev , ">") == 2) &&
+                        (tokenize_args(pipev[1], redirectv, WHITESPACE) == 1)) {
                         redirectfd = open(redirectv[0], O_RDWR|O_CREAT|O_TRUNC, 0777);
                         dup2(redirectfd, STDOUT_FILENO);
                         dup2(redirectfd, STDERR_FILENO);
@@ -100,7 +120,7 @@ int main(int argc, char *argv[]) {
                     }
                 }
 
-                wargc = tokenize_args(buf, wargv, WHITESPACE);
+                wargc = tokenize_args(ssbufptr, wargv, WHITESPACE);
 
                 if (wargc == 0) continue;
 
@@ -150,6 +170,14 @@ int main(int argc, char *argv[]) {
 			printf("waitpid error\n");
                         exit(1);
                 }
+
+                /* ss parent */
+                if (ssi == 0) {
+                    for (int i = 1; i < nsubshells; i++) {
+                        waitpid(sspids[i], &status, 0);
+                    }
+                }
+                else exit(0);
 	}
 	exit(0);
 }
