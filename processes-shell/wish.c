@@ -10,6 +10,7 @@
 char *pathv[MAXPATHS] = {0};
 char prompt[] = "wish> ";
 char fullpath[MAXLINE];
+char *argv[MAXARGS] = {0};
 
 char *getfullpath(char filename[]) {
     char *path;
@@ -22,15 +23,24 @@ char *getfullpath(char filename[]) {
             return fullpath;
         }
     }
-
     return (char *) 0;
+}
+
+int tokenize_args(char buf[]) {
+
+    int i = 0;
+    char delim[] = " \t";
+    if ((argv[i] = strtok(buf, delim)))
+        while ((argv[++i] = strtok(NULL, delim)))
+            ;
+            
+    return i;
 }
 
 int main(void) {
 	char buf[MAXLINE] = {0};
 	pid_t pid;
 	int status;
-        char *argv[MAXARGS] = {0};
         pathv[0] = "/bin";
         char *fullpathptr;
 
@@ -38,15 +48,15 @@ int main(void) {
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
+                tokenize_args(buf);
 
+                // fork new process
 		if ((pid = fork()) < 0) {
 			printf("fork error");
                         exit(1);
 		} else if (pid == 0) {		/* child */
-                        argv[0] = strdup(buf);
-                        argv[1] = 0;
-                        if ((fullpathptr = getfullpath(buf)) == 0) {
-                            printf("couldn't execute: %s\n", buf);
+                        if ((fullpathptr = getfullpath(argv[0])) == 0) {
+                            printf("couldn't execute: %s\n", argv[0]);
                             exit(1);
                         }
 
