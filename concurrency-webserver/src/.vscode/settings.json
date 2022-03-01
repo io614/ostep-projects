@@ -1,0 +1,10 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/ivan/ostep-projects/concurrency-webserver/src",
+            "binaryPath": "/home/ivan/ostep-projects/concurrency-webserver/src/wserver",
+            "binaryArgs": []
+        }
+    ]
+}

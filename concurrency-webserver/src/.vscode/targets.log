@@ -1,0 +1,411 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Tue Mar  1 18:04:07 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AGENT_FOLDER = /home/ivan/.vscode-server
+# environment
+XDG_SESSION_TYPE = tty
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.2.1
+# makefile
+CURDIR := /home/ivan/ostep-projects/concurrency-webserver/src
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
+# environment
+_ = /home/ivan/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/node
+# makefile (from 'Makefile', line 6)
+CFLAGS = -Wall -g
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+MAKELEVEL := 0
+# makefile (from 'Makefile', line 8)
+TEST_FILES_DIR = ../test_files
+# environment
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'Makefile', line 7)
+OBJS = wserver.o wclient.o request.o io_helper.o 
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+LC_NAME = en_US.UTF-8
+# environment
+VSCODE_CWD = /home/ivan
+# environment
+SSH_CONNECTION = 192.168.0.136 62644 192.168.0.140 22
+# environment
+PATH = /home/ivan/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/bin/remote-cli:/home/ivan/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ivan/.local/bin
+# environment
+XDG_RUNTIME_DIR = /run/user/1000
+# environment
+VSCODE_LOG_STACK = false
+# environment
+LC_NUMERIC = en_US.UTF-8
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-ef58c37e-4571-42bb-86be-1522432de7e6.sock
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /home/ivan/ostep-projects/concurrency-webserver/src
+# default
+.LOADED := 
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/services/extensions/node/extensionHostProcess
+# environment
+HOME = /home/ivan
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+LOGNAME = ivan
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
++F = $(notdir $+)
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+LC_TIME = en_US.UTF-8
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 0
+# makefile (from 'Makefile', line 5)
+CC = gcc
+# environment
+XDG_SESSION_ID = 3033
+# environment
+USER = ivan
+# environment
+LC_MONETARY = en_US.UTF-8
+# makefile
+.DEFAULT_GOAL := all
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LC_TELEPHONE = en_US.UTF-8
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 192.168.0.136 62644 22
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /home/ivan/.vscode-server/bin/f80445acd5a3dadef24aa209168452a3d97cc326/bin/helpers/browser.sh
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# automatic
+^F = $(notdir $^)
+# environment
+LC_MEASUREMENT = en_US.UTF-8
+# environment
+LC_ALL = C
+# environment
+LC_PAPER = en_US.UTF-8
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+LC_IDENTIFICATION = en_US.UTF-8
+# default
+.RECIPEPREFIX := 
+# environment
+LC_ADDRESS = en_US.UTF-8
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+LANG = C
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# environment
+MOTD_SHOWN = pam
+# variable set hash-table stats:
+# Load=82/1024=8%, Rehash=0, Collisions=14/113=12%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2051, inode 3414788): 19 files, no impossibilities.
+
+# 19 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+%.cgi: %.c
+#  recipe to execute (from 'Makefile', line 21):
+	$(CC) $(CFLAGS) -o $@ $< ;\
+	cp $@ ${TEST_FILES_DIR};
+
+%.c:
+
+%.o: %.c
+#  recipe to execute (from 'Makefile', line 25):
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+%.o:
+
+# 4 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+io_helper.o: io_helper.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'io_helper'
+#  Last modified 2022-03-01 17:43:21.779628186
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 25):
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+wclient.o: wclient.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'wclient'
+#  Last modified 2022-03-01 17:58:58.903550796
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 25):
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+wclient: wclient.o io_helper.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-03-01 17:58:58.923551522
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 18):
+	$(CC) $(CFLAGS) -o wclient wclient.o io_helper.o
+
+# Not a target:
+adder.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-01 18:03:29.661545674
+#  File has been updated.
+#  Successfully updated.
+
+all: wserver wclient spin.cgi adder.cgi
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+
+# Not a target:
+.o:
+#  Implicit rule search has not been done.
+ 
+#  Modification time never checked.
+#  File has not been updated.
+
+wserver.o: wserver.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'wserver'
+#  Last modified 2022-03-01 17:58:58.787546583
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 25):
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+wserver: wserver.o request.o io_helper.o
+#  Implicit rule search has not been done.
+#  Last modified 2022-03-01 17:58:58.863549343
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 15):
+	$(CC) $(CFLAGS) -o wserver wserver.o request.o io_helper.o 
+
+.SUFFIXES: .c .o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-01 18:03:47.682220348
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+wclient.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-01 17:46:13.658425274
+#  File has been updated.
+#  Successfully updated.
+
+spin.cgi: spin.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'spin'
+#  Last modified 2022-03-01 17:31:02.633446971
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 21):
+	$(CC) $(CFLAGS) -o $@ $< ;\
+	cp $@ ${TEST_FILES_DIR};
+
+# Not a target:
+.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+.c.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 25):
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+# Not a target:
+spin.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-01 17:22:07.496132111
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+wserver.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-01 17:51:38.756247304
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+request.o: request.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'request'
+#  Last modified 2022-03-01 17:58:58.839548471
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 25):
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 28):
+	-rm -f $(OBJS) wserver wclient spin.cgi all.cgi
+
+adder.cgi: adder.c
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'adder'
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := adder.cgi
+# automatic
+# % := 
+# automatic
+# * := adder
+# automatic
+# + := adder.c
+# automatic
+# | := 
+# automatic
+# < := adder.c
+# automatic
+# ^ := adder.c
+# automatic
+# ? := adder.c
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/17=6%
+#  recipe to execute (from 'Makefile', line 21):
+	$(CC) $(CFLAGS) -o $@ $< ;\
+	cp $@ ${TEST_FILES_DIR};
+
+# Not a target:
+io_helper.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-01 17:40:18.232096997
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+request.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-03-01 17:58:37.538775987
+#  File has been updated.
+#  Successfully updated.
+
+# files hash-table stats:
+# Load=22/1024=2%, Rehash=0, Collisions=11/67=16%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 36 / storage = 293 B / avg = 8 B
+# current buf: size = 8162 B / used = 293 B / count = 36 / avg = 8 B
+
+# strcache performance: lookups = 75 / hit rate = 52%
+# hash-table stats:
+# Load=36/8192=0%, Rehash=0, Collisions=6/75=8%
+# Finished Make data base on Tue Mar  1 18:04:07 2022
+
+ 
