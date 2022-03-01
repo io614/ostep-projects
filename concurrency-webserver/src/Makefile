@@ -3,8 +3,9 @@
 # To remove files, type "make clean"
 
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 OBJS = wserver.o wclient.o request.o io_helper.o 
+TEST_FILES_DIR = ../test_files
 
 .SUFFIXES: .c .o 
 
@@ -16,8 +17,9 @@ wserver: wserver.o request.o io_helper.o
 wclient: wclient.o io_helper.o
 	$(CC) $(CFLAGS) -o wclient wclient.o io_helper.o
 
-spin.cgi: spin.c
-	$(CC) $(CFLAGS) -o spin.cgi spin.c
+%.cgi: %.c
+	$(CC) $(CFLAGS) -o $@ $< ;\
+	cp spin.cgi ${TEST_FILES_DIR};
 
 .c.o:
 	$(CC) $(CFLAGS) -o $@ -c $<
