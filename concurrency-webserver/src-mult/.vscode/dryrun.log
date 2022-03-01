@@ -1,0 +1,6 @@
+make all --dry-run --keep-going --print-directory
+make: Entering directory '/home/ivan/ostep-projects/concurrency-webserver/src'
+gcc -Wall -g -o adder.cgi adder.c ;\
+cp adder.cgi ../test_files;
+make: Leaving directory '/home/ivan/ostep-projects/concurrency-webserver/src'
+ 
