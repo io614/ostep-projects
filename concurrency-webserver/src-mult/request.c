@@ -142,7 +142,7 @@ void request_serve_static(int fd, char *filename, int filesize) {
 }
 
 // handle a request
-void request_handle(int fd) {
+void request_handle(int fd, int tid) {
     int is_static;
     struct stat sbuf;
     char buf[MAXBUF], method[MAXBUF], uri[MAXBUF], version[MAXBUF];
@@ -150,7 +150,7 @@ void request_handle(int fd) {
     
     readline_or_die(fd, buf, MAXBUF);
     sscanf(buf, "%s %s %s", method, uri, version);
-    printf("method:%s uri:%s version:%s\n", method, uri, version);
+    printf("tid:%d method:%s uri:%s version:%s\n", tid, method, uri, version);
     
     if (strcasecmp(method, "GET")) {
 	request_error(fd, method, "501", "Not Implemented", "server does not implement this method");

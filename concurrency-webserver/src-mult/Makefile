@@ -3,7 +3,7 @@
 # To remove files, type "make clean"
 
 CC = gcc
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -pthread
 OBJS = wserver.o wclient.o request.o io_helper.o 
 TEST_FILES_DIR = ../test_files
 

@@ -1,6 +1,7 @@
-make all --dry-run --keep-going --print-directory
-make: Entering directory '/home/ivan/ostep-projects/concurrency-webserver/src'
-gcc -Wall -g -o adder.cgi adder.c ;\
-cp adder.cgi ../test_files;
-make: Leaving directory '/home/ivan/ostep-projects/concurrency-webserver/src'
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/ivan/ostep-projects/concurrency-webserver/src-mult'
+gcc -Wall -g -pthread -o wserver.o -c wserver.c
+gcc -Wall -g -pthread -o request.o -c request.c
+gcc -Wall -g -pthread -o wserver wserver.o request.o io_helper.o 
+make: Leaving directory '/home/ivan/ostep-projects/concurrency-webserver/src-mult'
  
